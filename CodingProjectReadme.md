@@ -1,4 +1,4 @@
-<h1>Unit 3 Final Project: [[Project Name HERE]]</h1>
+<h1>Unit 3 Final Project: [[Unit 3 Project]]</h1>
 
 <strong>Interaction</strong>:
 
