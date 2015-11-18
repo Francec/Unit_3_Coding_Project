@@ -2,8 +2,8 @@ class Sattelite
 {
   Body body;
   float r;
-  
-  Sattelite(float r_, float x, float y)
+ 
+  Sattelite(float r_, float x, float y, PVector LVel)
   {
     r = r_;
     BodyDef bd = new BodyDef();
@@ -16,10 +16,10 @@ class Sattelite
     fd.shape = cs;
     fd.density = 200;
     fd.friction = 0;
-    fd.restitution = 1;
+    fd.restitution = 0.999;
     body.createFixture(fd);
-    body.setLinearVelocity(new Vec2(random(-20,20),random(-20,20)));
-    body.setAngularVelocity(random(-10,10));
+    body.setLinearVelocity(new Vec2((LVel.x/3),(-1*LVel.y/3)));
+    body.setAngularVelocity(0);
   }
   
   void applyForce(Vec2 v) 
@@ -34,7 +34,7 @@ class Sattelite
     pushMatrix();
     translate(pos.x,pos.y);
     rotate(a);
-    fill(150);
+    fill(0);
     ellipse(0,0,r*2,r*2);
     popMatrix();
   }

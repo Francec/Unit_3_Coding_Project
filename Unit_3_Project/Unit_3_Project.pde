@@ -5,8 +5,19 @@ import org.jbox2d.dynamics.*;
 
 Box2DProcessing box2d;
 Attractor a;
-Sattelite[] sat = new Sattelite[1];
+ArrayList<Sattelite> sat = new ArrayList<Sattelite>();
 ArrayList<Boundary> boundaries;
+
+enum MouseState
+{
+  CLICKED,
+  RELEASED,
+  DRAGGING
+};
+
+MouseState mState = MouseState.RELEASED;
+MouseState PrevMState=MouseState.RELEASED;
+PVector mStart = new PVector(0,0);
 
 void setup()
 {
@@ -15,10 +26,6 @@ void setup()
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
   box2d.setGravity(0,0);
-  for(int i = 0; i < sat.length; i++)
-  {
-    sat[i] = new Sattelite(2.5,random(width),random(height));
-  }
   a = new Attractor(25,width/2,height/2);
   /*boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(width/2,height-5,width,10));
@@ -29,14 +36,47 @@ void setup()
 
 void draw()
 {
-  //background(200);
+  background(200);
+  if (mousePressed)
+  {
+    mState = MouseState.CLICKED;
+    if (PrevMState == MouseState.RELEASED)
+    {
+      mStart = new PVector(mouseX,mouseY);
+    }
+    else
+    {
+      stroke(0,0,0);
+      strokeWeight(2);
+      line(mStart.x,mStart.y,mouseX,mouseY);
+    }
+  }
+  else
+  {
+    mState = MouseState.RELEASED;
+    if(PrevMState == MouseState.CLICKED)
+    {
+      PVector SatVec = PVector.sub(mStart,new PVector(mouseX,mouseY));
+      sat.add(new Sattelite(10,mStart.x,mStart.y, SatVec));
+    }
+  }
+  
+  if (keyPressed)
+  {
+    if (key == 'r')
+    {
+      sat.clear();
+    }
+  }
+  
+  PrevMState = mState;
   box2d.step();
   a.display();
-  for(int i = 0; i < sat.length; i++)
+  for(Sattelite s : sat)
   {
-    Vec2 force = a.attract(sat[i]);
-    sat[i].applyForce(force);
-    sat[i].display();
+    Vec2 force = a.attract(s);
+    s.applyForce(force);
+    s.display();
   }
   fill(0,0,255);
 }
