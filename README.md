@@ -1,8 +1,9 @@
 <h1>Unit 3 Final Project: [[Unit 3 Project]]</h1>
 
-<strong>Interaction</strong>:
+<strong>Interaction</strong>: Kinect to set physical vector for sattelites around a black hole.
 
-<strong>Description</strong>:
+<strong>Description</strong>: By using the kinect you will be able to control and set the orbit of different sattelites, as well as make them. I was going for a god-like
+sort of control of the universe. Able to create, destroy and manipulate planets.
 
 <h2>Timeline</h2>
 
@@ -11,6 +12,7 @@
   <strong>Goal:</strong> You should have solid planning done by the end of this milestone.
   <ul>
     <li>first task : who is doing it (if in team)</li>
+	<li>blah blah</li>
   </ul>
 </div>
 
