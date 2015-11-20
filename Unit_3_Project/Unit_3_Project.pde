@@ -1,7 +1,11 @@
 import shiffman.box2d.*;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.joints.*;
 import org.jbox2d.collision.shapes.*;
+import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.*;
 
 Box2DProcessing box2d;
 Attractor a;
@@ -25,6 +29,7 @@ void setup()
   noStroke();
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
+  box2d.listenForCollisions();
   box2d.setGravity(0,0);
   a = new Attractor(25,width/2,height/2);
   /*boundaries = new ArrayList<Boundary>();
@@ -57,7 +62,7 @@ void draw()
     if(PrevMState == MouseState.CLICKED)
     {
       PVector SatVec = PVector.sub(mStart,new PVector(mouseX,mouseY));
-      sat.add(new Sattelite(10,mStart.x,mStart.y, SatVec));
+      sat.add(new Sattelite(random(5,50),mStart.x,mStart.y, SatVec,loadImage("image.png")));
     }
   }
   
@@ -80,3 +85,37 @@ void draw()
   }
   fill(0,0,255);
 }
+
+void beginContact(Contact cp) {
+  // Get both fixtures
+  Fixture f1 = cp.getFixtureA();
+  Fixture f2 = cp.getFixtureB();
+  // Get both bodies
+  Body b1 = f1.getBody();
+  Body b2 = f2.getBody();
+
+  // Get our objects that reference these bodies
+  Object o1 = b1.getUserData();
+  Object o2 = b2.getUserData();
+
+  if (o1.getClass() == Sattelite.class && o2.getClass() == Sattelite.class) {
+    Sattelite s1 = (Sattelite) o1;
+    Sattelite s2 = (Sattelite) o2;
+    Disasm(b2);
+    Disasm(b1);
+  }
+}
+
+PVector ConvVec(Vec2 v)
+  {
+    return new PVector(v.x,v.y);
+  }
+  
+  void Disasm(Body body)
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      sat.add(new Sattelite(random(5,50),box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),loadImage("image.png")));
+    }
+    box2d.destroyBody(body);
+  }

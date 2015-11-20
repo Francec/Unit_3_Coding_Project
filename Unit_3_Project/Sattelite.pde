@@ -2,8 +2,9 @@ class Sattelite
 {
   Body body;
   float r;
+  PImage img;
  
-  Sattelite(float r_, float x, float y, PVector LVel)
+  Sattelite(float r_, float x, float y, PVector LVel, PImage img_)
   {
     r = r_;
     BodyDef bd = new BodyDef();
@@ -14,17 +15,33 @@ class Sattelite
     cs.m_radius = box2d.scalarPixelsToWorld(r);
     FixtureDef fd = new FixtureDef();
     fd.shape = cs;
-    fd.density = 200;
+    fd.density = r*5;
     fd.friction = 0;
     fd.restitution = 0.999;
     body.createFixture(fd);
     body.setLinearVelocity(new Vec2((LVel.x/3),(-1*LVel.y/3)));
     body.setAngularVelocity(0);
+    body.setUserData(this);
+    img = img_;
   }
   
   void applyForce(Vec2 v) 
   {
     body.applyForce(v, body.getWorldCenter());
+  }
+  
+  PVector ConvVec(Vec2 v)
+  {
+    return new PVector(v.x,v.y);
+  }
+  
+  void Disasm()
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      sat.add(new Sattelite(random(5,50),box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),loadImage("image.png")));
+    }
+    box2d.destroyBody(body);
   }
   
   void display()
@@ -35,7 +52,10 @@ class Sattelite
     translate(pos.x,pos.y);
     rotate(a);
     fill(0);
-    ellipse(0,0,r*2,r*2);
+   //ellipse(0,0,r*2,r*2);
+   imageMode(CENTER);
+   img.resize((int)r*2,(int)r*2);
+   image(img,0,0);
     popMatrix();
   }
 }
