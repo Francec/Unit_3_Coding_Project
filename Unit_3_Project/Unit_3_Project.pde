@@ -24,6 +24,7 @@ enum MouseState
 MouseState mState = MouseState.RELEASED;
 MouseState PrevMState=MouseState.RELEASED;
 PVector mStart = new PVector(0,0);
+PImage asteroidImg;
 
 void setup()
 {
@@ -39,6 +40,7 @@ void setup()
   boundaries.add(new Boundary(width-5,height/2,10,height));
   boundaries.add(new Boundary(5,height/2,10,height));
   boundaries.add(new Boundary(width/2,5,width,1));*/
+  asteroidImg = loadImage("image.png");
 }
 
 void draw()
@@ -86,7 +88,7 @@ void draw()
   fill(0);
   textSize(35);
   text(radius,100,100);
-  
+
   if (keyPressed)
   {
     if (key == 'r')
@@ -136,7 +138,7 @@ PVector ConvVec(Vec2 v)
   {
     for (int i = 0; i < 4; i++)
     {
-      sat.add(new Sattelite(radius,box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),loadImage("image.png")));
+      sat.add(new Sattelite(radius,box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),asteroidImg));
     }
     box2d.destroyBody(body);
   }
