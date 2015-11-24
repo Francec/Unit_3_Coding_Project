@@ -6,11 +6,13 @@ import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
+import org.jbox2d.dynamics.contacts.Contact.*;
 
 Box2DProcessing box2d;
 Attractor a;
 ArrayList<Sattelite> sat = new ArrayList<Sattelite>();
 ArrayList<Boundary> boundaries;
+float radius = 25;
 
 enum MouseState
 {
@@ -42,6 +44,22 @@ void setup()
 void draw()
 {
   background(200);
+    if (keyPressed)
+    {
+      if (key == '.')
+      {
+        radius += 5;
+      }
+      if (key == ',')
+      {
+        if (radius >= 5)
+        {
+          radius -= 5;
+        }
+        else
+        radius = 1;
+      }
+    }
   if (mousePressed)
   {
     mState = MouseState.CLICKED;
@@ -62,9 +80,12 @@ void draw()
     if(PrevMState == MouseState.CLICKED)
     {
       PVector SatVec = PVector.sub(mStart,new PVector(mouseX,mouseY));
-      sat.add(new Sattelite(random(5,50),mStart.x,mStart.y, SatVec,loadImage("image.png")));
+      sat.add(new Sattelite(radius,mStart.x,mStart.y, SatVec,loadImage("image.png")));
     }
   }
+  fill(0);
+  textSize(35);
+  text(radius,100,100);
   
   if (keyPressed)
   {
@@ -115,7 +136,7 @@ PVector ConvVec(Vec2 v)
   {
     for (int i = 0; i < 4; i++)
     {
-      sat.add(new Sattelite(random(5,50),box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),loadImage("image.png")));
+      sat.add(new Sattelite(radius,box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),loadImage("image.png")));
     }
     box2d.destroyBody(body);
   }

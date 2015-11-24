@@ -20,7 +20,7 @@ class Sattelite
     fd.restitution = 0.999;
     body.createFixture(fd);
     body.setLinearVelocity(new Vec2((LVel.x/3),(-1*LVel.y/3)));
-    body.setAngularVelocity(0);
+    body.setAngularVelocity(1);
     body.setUserData(this);
     img = img_;
   }
@@ -33,15 +33,6 @@ class Sattelite
   PVector ConvVec(Vec2 v)
   {
     return new PVector(v.x,v.y);
-  }
-  
-  void Disasm()
-  {
-    for (int i = 0; i < 4; i++)
-    {
-      sat.add(new Sattelite(random(5,50),box2d.getBodyPixelCoord(body).x, box2d.getBodyPixelCoord(body).y, ConvVec(body.getLinearVelocity()),loadImage("image.png")));
-    }
-    box2d.destroyBody(body);
   }
   
   void display()
