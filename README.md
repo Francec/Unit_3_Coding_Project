@@ -9,26 +9,27 @@ sort of control of the universe. Able to create, destroy and manipulate planets.
 
 <div>
   <h3>Milestone #1: November 20th, 2015 </h3>
-  <strong>Goal:</strong> You should have solid planning done by the end of this milestone.
+  <strong>Goal:</strong> Learn how to use Box2D, create an attractor make a sattelite class and make the class an arraylist.			
   <ul>
-    <li>first task : who is doing it (if in team)</li>
-	<li>blah blah</li>
+    <li>first task: Figuring out Box2D and making an attractor in the middle.</li>
   </ul>
 </div>
 
 <p>
   <h3>Milestone #2: November 30th, 2015 </h3>
-  <strong>Goal:</strong> You should have a small prototype by the end of this milestone.
+  <strong>Goal:</strong> Use the Kinect and have a visible skeleton of the player.
   <ul>
-    <li>first task : who is doing it (if in team)</li>
+    <li>first task: Learn to use Kinect on processing</li>
+    <li>second task: display skeleton and depthImage in the code.</li>
   </ul>
 </p>
 
 <div>
-  <h3>Milestone #3: December 7th, 2015 (For C block)</br>
-  Milestone #3: December 8th, 2015 (For G block) </h3>
-  <strong>Goal:</strong> You should have iterated and improved on your prototype by the end of this milestone.
+  <h3>Milestone #3: December 9th, 2015 (For G block)</br></h3>
+  <strong>Goal:</strong> Finish interactivity of program.
   <ul>
-    <li>first task : who is doing it (if in team)</li>
+    <li>first task : Get collisions functions figured out</li>
+	<li>Second task: Figure out kinect interactivity</li>
+    <li>third task: Combine kinect interactivity with collisions functions.</li>
   </ul>
 </div>
