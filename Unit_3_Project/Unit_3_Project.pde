@@ -16,6 +16,7 @@ ArrayList <SkeletonData> bodies;
 
 Box2DProcessing box2d;
 Attractor a;
+Button but;
 ArrayList<Sattelite> sat = new ArrayList<Sattelite>();
 ArrayList<Boundary> boundaries;
 float radius = 25;
@@ -36,7 +37,11 @@ enum MouseState
 MouseState mState = MouseState.RELEASED;
 MouseState PrevMState=MouseState.RELEASED;
 PVector mStart = new PVector(0,0);
-PImage asteroidImg;
+PImage astImg1;
+PImage astImg2;
+PImage astImg3;
+PImage astImg4;
+PImage astImg5;
 
 void setup()
 {
@@ -49,13 +54,18 @@ void setup()
   box2d.setGravity(0,0);
   kinect = new Kinect(this);
   a = new Attractor(25,width/2,height/2);
+  astImg1 = loadImage("asteroid1.png");
+  astImg2 = loadImage("asteroid2.png");
+  astImg3 = loadImage("asteroid3.png");
+  astImg4 = loadImage("asteroid4.png");
+  astImg5 = loadImage("asteroid5.png");
+  but = new Button(astImg1, astImg2, astImg3, astImg4, astImg5);
   bodies = new ArrayList<SkeletonData>();
   /*boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(width/2,height-5,width,10));
   boundaries.add(new Boundary(width-5,height/2,10,height));
   boundaries.add(new Boundary(5,height/2,10,height));
   boundaries.add(new Boundary(width/2,5,width,1));*/
-  asteroidImg = loadImage("image.png");
 }
 
 void draw()
@@ -99,7 +109,7 @@ void draw()
     if(PrevMState == MouseState.CLICKED)
     {
       PVector SatVec = PVector.sub(mStart,new PVector(mouseX,mouseY));
-      sat.add(new Sattelite(radius,mStart.x,mStart.y, SatVec,loadImage("image.png")));
+      sat.add(new Sattelite(radius,mStart.x,mStart.y, SatVec,loadImage("asteroid3.png")));
     }
   }
   fill(0);
