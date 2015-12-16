@@ -11,7 +11,7 @@ class Button
   PImage Asteroid4;
   PImage Asteroid5;
   
-  Button(PImage ast1, PImage ast2, PImage ast3, PImage ast4, PImage ast5)
+  Button(PImage ast1, PImage ast2, PImage ast3, PImage ast4)
   {
     numButtons = 5;
     pos = new PVector[numButtons];
@@ -40,7 +40,7 @@ class Button
     Asteroid2 = ast2;
     Asteroid3 = ast3;
     Asteroid4 = ast4;
-    Asteroid5 = ast5;
+   // Asteroid5 = ast5;
     size = 108;
     pos[0] = new PVector(size/2, size/2);
     for (int i = 1; i < numButtons; i++)

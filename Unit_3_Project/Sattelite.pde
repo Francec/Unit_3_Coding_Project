@@ -43,10 +43,10 @@ class Sattelite
     translate(pos.x,pos.y);
     rotate(a);
     fill(0);
-   ellipse(0,0,r*2,r*2);
+  // ellipse(0,0,r*2,r*2);
    imageMode(CENTER);
-   //img.resize((int)r*2,(int)r*2);
-   //image(img,0,0);
+   img.resize((int)r*2,(int)r*2);
+   image(img,0,0);
     popMatrix();
   }
 }

@@ -1,5 +1,5 @@
-import kinect4WinSDK.Kinect;
-import kinect4WinSDK.SkeletonData;
+/*import kinect4WinSDK.Kinect;
+import kinect4WinSDK.SkeletonData;*/
 
 import shiffman.box2d.*;
 import org.jbox2d.common.*;
@@ -11,8 +11,8 @@ import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 import org.jbox2d.dynamics.contacts.Contact.*;
 
-Kinect kinect;
-ArrayList <SkeletonData> bodies;
+//Kinect kinect;
+//ArrayList <SkeletonData> bodies;
 
 Box2DProcessing box2d;
 Attractor a;
@@ -42,6 +42,9 @@ PImage astImg2;
 PImage astImg3;
 PImage astImg4;
 PImage astImg5;
+PImage backDrop;
+int astNum = 2;
+boolean drawBack = true;
 
 void setup()
 {
@@ -52,15 +55,17 @@ void setup()
   box2d.createWorld();
   box2d.listenForCollisions();
   box2d.setGravity(0,0);
-  kinect = new Kinect(this);
+ // kinect = new Kinect(this);
   a = new Attractor(25,width/2,height/2);
   astImg1 = loadImage("asteroid1.png");
   astImg2 = loadImage("asteroid2.png");
   astImg3 = loadImage("asteroid3.png");
   astImg4 = loadImage("asteroid4.png");
-  astImg5 = loadImage("asteroid5.png");
-  but = new Button(astImg1, astImg2, astImg3, astImg4, astImg5);
-  bodies = new ArrayList<SkeletonData>();
+  //astImg5 = loadImage("asteroid5.png");
+  backDrop = loadImage("Backdrop.jpg");
+  backDrop.resize(width,height);
+  but = new Button(astImg1, astImg2, astImg3, astImg4);
+  //bodies = new ArrayList<SkeletonData>();
   /*boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(width/2,height-5,width,10));
   boundaries.add(new Boundary(width-5,height/2,10,height));
@@ -70,12 +75,35 @@ void setup()
 
 void draw()
 {
-  background(200);
+  if (drawBack == true)
+  {
+    background(backDrop);
+  }
     if (keyPressed)
     {
+      if (key == 'k')
+      {
+        drawBack = !drawBack;
+      }
       if (key == '.')
       {
         radius += 5;
+      }
+      if (key == '1')
+      {
+        astNum = 1;
+      }
+      if (key == '2')
+      {
+        astNum = 2;
+      }
+      if (key == '3')
+      {
+        astNum = 3;
+      }
+      if (key == '4')
+      {
+        astNum = 4;
       }
       if (key == ',')
       {
@@ -88,7 +116,7 @@ void draw()
       }
     }
     
-  image(kinect.GetDepth(),(0.5*width),(0.5*height),width,height);
+  //image(kinect.GetDepth(),(0.5*width),(0.5*height),width,height);
   if (mousePressed)
   {
     mState = MouseState.CLICKED;
@@ -109,17 +137,20 @@ void draw()
     if(PrevMState == MouseState.CLICKED)
     {
       PVector SatVec = PVector.sub(mStart,new PVector(mouseX,mouseY));
-      sat.add(new Sattelite(radius,mStart.x,mStart.y, SatVec,loadImage("asteroid3.png")));
+      sat.add(new Sattelite(radius,mStart.x,mStart.y, SatVec,loadImage("asteroid"+astNum+".png")));
     }
   }
-  fill(0);
+  fill(100);
+  textSize(35);
+  text(radius,102,98);
+  fill(200);
   textSize(35);
   text(radius,100,100);
-  for (int i=0; i<bodies.size (); i++) 
+  /*for (int i=0; i<bodies.size (); i++) 
   {
     drawSkeleton(bodies.get(i));
     drawPosition(bodies.get(i));
-  }
+  }*/
   if (keyPressed)
   {
     if (key == 'r')
@@ -175,14 +206,14 @@ PVector ConvVec(Vec2 v)
   }*/
   
   
-  void drawPosition(SkeletonData _s) 
+  /*void drawPosition(SkeletonData _s) 
 {
   noStroke();
   fill(0, 100, 255);
   String s1 = str(_s.dwTrackingID);
   text(s1, _s.position.x*width/2, _s.position.y*height/2);
 }
- 
+
 void drawSkeleton(SkeletonData _s) 
 {
   lh = Kinect.NUI_SKELETON_POSITION_HAND_LEFT;
@@ -312,3 +343,4 @@ void disappearEvent(SkeletonData _s)
     }
   }
 }
+*/
